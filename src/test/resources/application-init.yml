@@ -1,0 +1,27 @@
+
+server:
+  port: 8082
+  servlet:
+    session.timeout: 60000
+    contextpath: /
+
+spring:
+  datasource:
+    url: jdbc:mysql://47.98.255.160:3308/yc108109res?serverTimezone=UTC
+    username: zhulin
+    password: zhulin0804
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  sql:
+    init:
+      schema-locations:
+        -classpath*: schema-all.sql
+      data-locations:
+        -classpath*: data-all.sql
+      username: zhulin
+      password: zhulin0804
+      mode: ALWAYS     #*****注意它的取值
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启SQL语句打印

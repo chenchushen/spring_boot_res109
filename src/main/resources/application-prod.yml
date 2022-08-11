@@ -1,0 +1,19 @@
+server:
+  port: 8085
+  servlet:
+    session.timeout: 60000
+    contextpath: /
+
+spring:
+  datasource:
+    url: jdbc:mysql://172.19.0.2:3306/yc108109res?serverTimezone=UTC
+    username: root
+    password: a
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   #开启sql语句打印
