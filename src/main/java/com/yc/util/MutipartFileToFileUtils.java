@@ -10,15 +10,16 @@ import java.io.IOException;
 public class MutipartFileToFileUtils {
     /**
      * TODO MultipartFile文件转为File文件
+     *
      * @param multipartFile
      * @return
      */
-    public static File MultipartFileToFile(MultipartFile multipartFile){
+    public static File MultipartFileToFile(MultipartFile multipartFile) {
         String filename = multipartFile.getOriginalFilename();
         String perfix = filename.substring(filename.lastIndexOf("."));
-        File file =null;
+        File file = null;
         try {
-            file =File.createTempFile(filename,perfix);
+            file = File.createTempFile(filename, perfix);
             multipartFile.transferTo(file);
             return file;
         } catch (IOException e) {
