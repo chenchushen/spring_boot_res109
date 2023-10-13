@@ -3,6 +3,7 @@ package com.yc.thread;
 import com.yc.mapper.DeadManMapper;
 import com.yc.model.entity.DeadMan;
 import com.yc.model.entity.DeadManExcelData;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -40,8 +41,24 @@ public class DeadManThread implements Runnable {
 
     @Override
     public void run() {
-        ArrayList<DeadMan> deadManList = new ArrayList<>();
-        List<DeadManExcelData> newList = list.subList(startPosition, endPosition);
-        //
+        try {
+            ArrayList<DeadMan> deadManList = new ArrayList<>();
+            List<DeadManExcelData> newList = list.subList(startPosition, endPosition);
+            //将EasyExcel对象和实体类对象进行一个转换
+            for (DeadManExcelData deadManExcelData :
+                    newList) {
+                DeadMan deadMan = new DeadMan();
+                BeanUtils.copyProperties(deadManExcelData, deadMan);
+                deadManList.add(deadMan);
+            }
+            //批量新增
+            deadManMapper.intsertBatchSomeColumn(deadManList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            //当一个线程执行完了计数要减一不然这个程序会一直挂起
+            count.countDown();
+        }
+
     }
 }
